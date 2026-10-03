@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Expense &amp; Budget Visualizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <h1>Expense &amp; Budget Visualizer</h1>
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Switch to dark mode">
+        <span id="theme-icon" aria-hidden="true">🌙</span>
+      </button>
+    </header>
+
+    <section class="balance" aria-live="polite">
+      <p class="balance-label">Total Balance</p>
+      <p id="total-balance" class="balance-amount">Rp0</p>
+      <p id="transaction-count" class="balance-meta">No transactions yet</p>
+    </section>
+
+    <section class="card">
+      <h2>Add Transaction</h2>
+      <form id="transaction-form" novalidate>
+        <div class="field">
+          <label for="item-name">Item Name</label>
+          <input id="item-name" type="text" placeholder="e.g. Cilok" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="item-amount">Amount (Rp)</label>
+          <input id="item-amount" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 15000">
+        </div>
+        <div class="field">
+          <label for="item-category">Category</label>
+          <select id="item-category"></select>
+        </div>
+        <p id="form-error" class="error" role="alert" hidden></p>
+        <button class="btn primary" type="submit">Add Transaction</button>
+      </form>
+
+      <details class="custom-category">
+        <summary>Add your own category</summary>
+        <div class="inline-row">
+          <input id="new-category" type="text" placeholder="e.g. Health" maxlength="20" aria-label="New category name" autocomplete="off">
+          <button id="add-category" class="btn secondary" type="button">Add category</button>
+        </div>
+        <p id="category-error" class="error" role="alert" hidden></p>
+      </details>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <div class="card-head">
+          <h2>Transactions</h2>
+          <div class="sort">
+            <label for="sort-by" class="sr-only">Sort transactions</label>
+            <select id="sort-by">
+              <option value="newest">Newest first</option>
+              <option value="amount-desc">Highest amount</option>
+              <option value="amount-asc">Lowest amount</option>
+              <option value="category">Category (A–Z)</option>
+            </select>
+          </div>
+        </div>
+        <ul id="transaction-list" class="transaction-list"></ul>
+        <p id="empty-list" class="empty">Nothing here yet. Add your first transaction above.</p>
+      </section>
+
+      <section class="card">
+        <h2>Spending by Category</h2>
+        <div class="chart-wrap">
+          <canvas id="category-chart" aria-label="Pie chart of spending by category" role="img"></canvas>
+          <p id="empty-chart" class="empty">Your chart will appear once you add a transaction.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
